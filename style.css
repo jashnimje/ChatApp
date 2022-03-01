@@ -136,9 +136,27 @@ body {
   text-decoration: underline;
 }
 
+/* Dashboard Page */
+.addBtn {
+  background: var(--primary);
+  color: var(--secondary-text);
+  outline: none;
+  border: none;
+  padding: 7px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 17px;
+}
+.body-contents {
+  padding: 20px 0 0 0;
+}
+
 /* Users List CSS Start */
 .users {
   padding: 25px 30px;
+}
+.users-list button {
+  cursor: pointer;
 }
 .users header,
 .users-list a {
@@ -155,6 +173,11 @@ body {
 .users header img {
   height: 50px;
   width: 50px;
+  margin: 0 15px;
+}
+.users header .back-icon {
+  color: var(--primary-text);
+  font-size: 18px;
 }
 :is(.users, .users-list) .content {
   display: flex;
@@ -381,17 +404,6 @@ body {
   justify-content: space-between;
 }
 
-.users {
-  padding: 25px 30px;
-}
-.users header,
-.users-list a {
-  display: flex;
-  align-items: center;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e6e6e6;
-  justify-content: space-between;
-}
 .edit header img {
   height: 50px;
   width: 50px;

@@ -28,7 +28,7 @@ if (mysqli_num_rows($sql) > 0) {
         <section class="form edit">
             <header>
                 <div class="content">
-                    <a href="users.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+                    <a href="dashboard.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
                     <img src="assets/images/profile/<?php echo $img; ?>" alt="">
                     <div class="details">
                         <span>Edit Details </span>

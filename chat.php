@@ -35,7 +35,7 @@ if (mysqli_num_rows($sql) > 0) {
     <div class="wrapper">
         <section class="chat-area">
             <header>
-                <a href="users.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+                <a href="dashboard.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
                 <img src="assets/images/profile/<?php echo $img; ?>" alt="">
                 <div class="details">
                     <span><?php echo $fname . " " . $lname ?></span>
