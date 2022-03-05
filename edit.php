@@ -25,13 +25,15 @@ if (mysqli_num_rows($sql) > 0) {
 
 <body>
     <div class="wrapper">
-        <section class="form edit">
+        <section class="form container">
             <header>
                 <div class="content">
                     <a href="dashboard.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
                     <img src="assets/images/profile/<?php echo $img; ?>" alt="">
                     <div class="details">
-                        <span>Edit Details </span>
+                        <span><?php echo $fname . " " . $lname; ?>
+                            <a href="edit.php?id=<?php echo $unique_id; ?>"><i class="fas fa-edit"></i></a></span>
+                        <p>Edit Details </p>
                     </div>
                 </div>
                 <a href="php/logout.php?logout_id=<?php echo $unique_id; ?>" class="logout">Logout</a>

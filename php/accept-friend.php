@@ -37,10 +37,11 @@ if (mysqli_num_rows($sql) > 0) {
 }
 
 $user_id = mysqli_real_escape_string($conn, $user_id);
-$sql = mysqli_query($conn, "INSERT INTO friends (user_id, friend_id) VALUES ($user_id, $friend_id);");
+$sql = "UPDATE friends SET approve = 1 WHERE user_id = $friend_id AND friend_id = $user_id;";
+$sql = mysqli_query($conn, $sql);
 if ($sql) {
     header("location: ../dashboard.php");
 } else {
     echo "Error: " . mysqli_error($conn);
-    header("location: users.php");
+    header("location: requests.php");
 }

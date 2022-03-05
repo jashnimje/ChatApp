@@ -28,6 +28,7 @@ if (mysqli_num_rows($sql) > 0) {
         <section class="container">
             <header>
                 <div class="content">
+                    <a href="dashboard.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
                     <img src="assets/images/profile/<?php echo $img; ?>" alt="">
                     <div class="details">
                         <span><?php echo $fname . " " . $lname; ?>
@@ -37,22 +38,19 @@ if (mysqli_num_rows($sql) > 0) {
                 </div>
                 <a href="php/logout.php?logout_id=<?php echo $unique_id; ?>" class="logout">Logout</a>
             </header>
-            <div class="body-contents">
-                <a href="users.php" class="addBtn">Add User</a>
-                <a href="requests.php" class="addBtn">Requests</a>
-                <div class="search">
-                    <span class="text">Select an user to start chat</span>
-                    <input type="text" placeholder="Enter name to search...">
-                    <button><i class="fas fa-search"></i></button>
-                </div>
-                <div class="users-list">
 
-                </div>
+            <div class="search">
+                <span class="text">Select an user to Add</span>
+                <input type="text" placeholder="Enter name to search...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="users-list">
+
             </div>
         </section>
     </div>
 
-    <script src="javascript/dashboard.js"></script>
+    <script src="javascript/requests.js"></script>
 
 </body>
 

@@ -25,7 +25,7 @@ if (mysqli_num_rows($sql) > 0) {
 
 <body>
     <div class="wrapper">
-        <section class="users">
+        <section class="container">
             <header>
                 <div class="content">
                     <a href="dashboard.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>

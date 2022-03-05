@@ -1,0 +1,19 @@
+<?php
+session_start();
+include_once "config.php";
+
+$outgoing_id = $_SESSION['unique_id'];
+$searchTerm = mysqli_real_escape_string($conn, $_POST['searchTerm']);
+
+$sql = "SELECT * FROM users WHERE NOT unique_id = {$outgoing_id} AND 
+unique_id IN (SELECT friend_id FROM friends WHERE user_id = {$outgoing_id} AND approve = 0) AND 
+(fname LIKE '%{$searchTerm}%' OR lname LIKE '%{$searchTerm}%');";
+
+$output = "";
+$query = mysqli_query($conn, $sql);
+if (mysqli_num_rows($query) > 0) {
+    include_once "data-requests.php";
+} else {
+    $output .= 'No user found related to your search term';
+}
+echo $output;

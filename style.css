@@ -151,14 +151,26 @@ body {
   padding: 20px 0 0 0;
 }
 
-/* Users List CSS Start */
-.users {
+/* Request Page */
+.disabledBtn {
+  background: #696969;
+  color: var(--secondary-text);
+  outline: none;
+  border: none;
+  padding: 7px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 17px;
+}
+
+/* Users and Edit CSS Start */
+.container {
   padding: 25px 30px;
 }
 .users-list button {
   cursor: pointer;
 }
-.users header,
+.container header,
 .users-list a {
   display: flex;
   align-items: center;
@@ -170,29 +182,29 @@ body {
   object-fit: cover;
   border-radius: 50%;
 }
-.users header img {
+.container header img {
   height: 50px;
   width: 50px;
   margin: 0 15px;
 }
-.users header .back-icon {
+.container header .back-icon {
   color: var(--primary-text);
   font-size: 18px;
 }
-:is(.users, .users-list) .content {
+:is(.container, .users-list) .content {
   display: flex;
   align-items: center;
 }
-:is(.users, .users-list) .content .details {
+:is(.container, .users-list) .content .details {
   color: var(--primary-text);
   margin-left: 20px;
 }
-:is(.users, .users-list) .details span {
+:is(.container, .users-list) .details span {
   color: var(--primary-text);
   font-size: 18px;
   font-weight: 500;
 }
-.users header .logout {
+.container header .logout {
   display: block;
   background: var(--primary);
   color: var(--secondary-text);
@@ -203,18 +215,18 @@ body {
   border-radius: 5px;
   font-size: 17px;
 }
-.users .search {
+.container .search {
   margin: 20px 0;
   display: flex;
   position: relative;
   align-items: center;
   justify-content: space-between;
 }
-.users .search .text {
+.container .search .text {
   color: var(--primary-text);
   font-size: 18px;
 }
-.users .search input {
+.container .search input {
   position: absolute;
   height: 42px;
   width: calc(100% - 50px);
@@ -227,12 +239,12 @@ body {
   pointer-events: none;
   transition: all 0.2s ease;
 }
-.users .search input.show {
+.container .search input.show {
   opacity: 1;
   pointer-events: auto;
 }
-.users .search button,
-.users .details a {
+.container .search button,
+.container .details a {
   position: relative;
   padding: 10px;
   z-index: 1;
@@ -247,7 +259,7 @@ body {
   border-radius: 0 5px 5px 0;
   transition: all 0.2s ease;
 }
-.users .search button.active {
+.container .search button.active {
   background: var(--primary);
   color: var(--secondary-text);
 }
@@ -395,62 +407,10 @@ body {
   pointer-events: auto;
 }
 
-/* Edit Page */
-.edit header {
-  display: flex;
-  align-items: center;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e6e6e6;
-  justify-content: space-between;
-}
-
-.edit header img {
-  height: 50px;
-  width: 50px;
-}
-:is(.edit) .content {
-  display: flex;
-  align-items: center;
-}
-:is(.edit) .content .details {
-  color: var(--primary-text);
-  margin-left: 20px;
-}
-:is(.edit) .details span {
-  color: var(--primary-text);
-  font-size: 18px;
-  font-weight: 500;
-}
-.edit header .logout {
-  display: block;
-  background: var(--primary);
-  color: var(--secondary-text);
-  outline: none;
-  border: none;
-  padding: 7px 15px;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 17px;
-}
-.edit header .back-icon {
-  color: var(--primary-text);
-  font-size: 18px;
-}
-.edit a img {
-  height: 40px;
-  width: 40px;
-}
-
-.edit header img {
-  height: 45px;
-  width: 45px;
-  margin: 0 15px;
-}
-
 /* Responive media query */
 @media screen and (max-width: 450px) {
   .form,
-  .users {
+  .container {
     padding: 20px;
   }
   .form header {
@@ -466,15 +426,15 @@ body {
     margin-left: 0px;
   }
 
-  .users header img {
+  .container header img {
     height: 45px;
     width: 45px;
   }
-  .users header .logout {
+  .container header .logout {
     padding: 6px 10px;
     font-size: 16px;
   }
-  :is(.users, .users-list) .content .details {
+  :is(.container, .users-list) .content .details {
     margin-left: 15px;
   }
 
