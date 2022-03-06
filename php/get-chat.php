@@ -13,24 +13,45 @@ if (isset($_SESSION['unique_id'])) {
     $query = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($query) > 0) {
+        $prevDate = "";
         while ($row = mysqli_fetch_assoc($query)) {
             $iv = hex2bin($row['iv']);
             $message = str_openssl_dec($row['msg'], $iv);
+            $time = $row['time'];
+            $currDate = date("d/m/y", strtotime($time));
 
+
+            $time = date("h:i a", strtotime($time));
+
+            if ($prevDate == "" || $prevDate != $currDate) {
+                $temp = $currDate;
+                if ($currDate == date('d/m/y')) {
+                    $currDate = "Today";
+                } else if ($currDate == date('d/m/y', strtotime("yesterday"))) {
+                    $currDate = "Yesterday";
+                } else {
+                    $currDate = date("d/m/y", strtotime($time));
+                }
+                $output .= "<div class='chatDate'>{$currDate}</div>";
+                $currDate = $temp;
+            }
             if ($row['outgoing_msg_id'] === $outgoing_id) {
                 $output .= '<div class="chat outgoing">
                                 <div class="details">
-                                    <p>' . $message . '</p>
+                                    <p class="chatbox">' . $message . '</p>
+                                    <p class="timestamp">' . $time . '</p>
                                 </div>
                                 </div>';
             } else {
                 $output .= '<div class="chat incoming">
-                                <img src="assets/images/profile/' . $row['img'] . '" alt="">
                                 <div class="details">
-                                    <p>' . $message . '</p>
+                                    <p class="chatbox">' . $message . '</p>
+                                    <p class="timestamp">' . $time . '</p>
                                 </div>
+                                
                                 </div>';
             }
+            $prevDate = $currDate;
         }
     } else {
         $output .= '<div class="text">No messages are available. Once you send message they will appear here.</div>';

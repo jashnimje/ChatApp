@@ -31,9 +31,7 @@ if (mysqli_num_rows($sql) > 0) {
                     <a href="dashboard.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
                     <img src="assets/images/profile/<?php echo $img; ?>" alt="">
                     <div class="details">
-                        <span><?php echo $fname . " " . $lname; ?>
-                            <a href="edit.php?id=<?php echo $unique_id; ?>"><i class="fas fa-edit"></i></a></span>
-                        <p>Edit Details </p>
+                        <span> Edit Details </span>
                     </div>
                 </div>
                 <a href="php/logout.php?logout_id=<?php echo $unique_id; ?>" class="logout">Logout</a>

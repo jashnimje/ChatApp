@@ -19,7 +19,7 @@ if (!empty($email) && !empty($password)) {
         // Checks password
         if ($user_pass === $enc_pass) {
 
-            $status = "Active now";
+            $status = "Online";
             $sql2 = mysqli_query($conn, "UPDATE users SET status = '{$status}' WHERE unique_id = {$row['unique_id']}");
 
             if ($sql2) {

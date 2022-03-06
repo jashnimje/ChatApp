@@ -34,6 +34,8 @@ body {
   justify-content: center;
   min-height: 100vh;
   background: var(--primary);
+  background-image: url("assets/images/BgWall.png");
+  /* background-repeat: no-repeat; */
   padding: 0 10px;
 }
 .wrapper {
@@ -163,7 +165,7 @@ body {
   font-size: 17px;
 }
 
-/* Users and Edit CSS Start */
+/* Container */
 .container {
   padding: 25px 30px;
 }
@@ -266,6 +268,8 @@ body {
 .search button.active i::before {
   content: "\f00d";
 }
+
+/* Users and Edit */
 .users-list {
   color: var(--primary-text);
   max-height: 350px;
@@ -300,7 +304,7 @@ body {
   color: #ff0019;
 }
 
-/* Chat Area CSS Start */
+/* Chat Area */
 .chat-area header {
   display: flex;
   align-items: center;
@@ -340,10 +344,16 @@ body {
 .chat-box .chat {
   margin: 15px 0;
 }
-.chat-box .chat p {
-  word-wrap: break-word;
-  padding: 8px 16px;
-  box-shadow: 0 0 32px var(--shadow), 0rem 16px 16px -16px var(--shadow);
+.chatDate {
+  color: var(--primary-text);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+.chat-box .chat .timestamp {
+  color: var(--primary-text);
+  font-size: 12px;
+  margin-top: 5px;
 }
 .chat-box .outgoing {
   display: flex;
@@ -352,10 +362,11 @@ body {
   margin-left: auto;
   max-width: calc(100% - 130px);
 }
-.outgoing .details p {
+.outgoing .details .chatbox {
   background: var(--outgoing-bg);
   color: var(--msg-text);
   border-radius: 18px 18px 0 18px;
+  padding: 8px 16px;
 }
 .chat-box .incoming {
   display: flex;
@@ -370,10 +381,13 @@ body {
   margin-left: 10px;
   max-width: calc(100% - 130px);
 }
-.incoming .details p {
+.incoming .details .chatbox {
   background: var(--incoming-bg);
   color: var(--msg-text);
   border-radius: 18px 18px 18px 0;
+  word-wrap: break-word;
+  padding: 8px 16px;
+  box-shadow: 0 0 32px var(--shadow), 0rem 16px 16px -16px var(--shadow);
 }
 .typing-area {
   padding: 18px 30px;
