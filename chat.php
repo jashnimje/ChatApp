@@ -31,6 +31,8 @@ if (mysqli_num_rows($sql) > 0) {
 ?>
 <?php include_once "header.php"; ?>
 
+
+
 <body>
     <div class="wrapper">
         <section class="chat-area">
@@ -45,11 +47,61 @@ if (mysqli_num_rows($sql) > 0) {
             <div class="chat-box">
 
             </div>
+
+            <!-- Model Popup -->
+            <div class="attachForm attach-popup" id="attachForm">
+                <form action="#" method="POST" enctype="multipart/form-data" autocomplete="off">
+                    <div class="attach-container">
+                        <div class="attach-header">
+                            <span>Attachments</span>
+                            <a class="closeBtn" onclick="closeAttach()"><i class="fas fa-solid fa-circle-xmark"></i></a>
+                        </div>
+
+                        <div class="msg-text"></div>
+                        <div class="success-text"></div>
+                        <div class="error-text"></div>
+
+                        <div class="attach-content">
+                            <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id; ?>"
+                                hidden>
+                            <div class="attach-item">
+                                <label for="file-document">
+                                    <i class="fas fa-solid fa-file-import"></i>
+                                    <!-- <span>Upload Document</span> -->
+                                </label>
+                                <input id="file-document" name="document" onchange="getFileData(this);"
+                                    style="display: none" type="file" />
+                            </div>
+                            <div class="attach-item">
+                                <label for="file-image">
+                                    <i class="fas fa-solid fa-image"></i>
+                                    <!-- <span>Attach Image</span> -->
+                                </label>
+                                <input id="file-image" name="image" onchange="getFileData(this);" style="display: none"
+                                    accept="image/*" type="file" />
+                            </div>
+                            <div class="attach-item">
+                                <label for="file-video">
+                                    <i class="fas fa-video"></i>
+                                    <!-- <span>Record Video</span> -->
+                                </label>
+                                <input id="file-video" name="video" onchange="getFileData(this);" style="display: none"
+                                    accept="video/*" type="file" />
+                            </div>
+                        </div>
+                        <div class="attach-footer">
+                            <input class="submitAttach addBtn" type="submit" name="submit" value="Upload">
+                        </div>
+                    </div>
+                </form>
+            </div>
             <form action="#" class="typing-area">
                 <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id; ?>" hidden>
                 <input type="text" name="message" class="input-field" placeholder="Type a message here..."
                     autocomplete="off">
-                <button><i class="fab fa-telegram-plane"></i></button>
+                <button type="button" class="attach active" onclick="openAttach()"><i
+                        class="fa-solid fa-paperclip"></i></button>
+                <button class="send"><i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </section>
     </div>

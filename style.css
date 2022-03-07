@@ -14,13 +14,19 @@
   --error-text: #721c24;
   --error: #f8d7da;
 
-  --msg-text: #ffffff;
+  --success-text: #00d624;
+  --success: #c1ffd0;
+
+  --msg-text: #001149;
+  --msg: #ceecff;
+
   --incoming-bg: #818181;
   --outgoing-bg: #87b1c2;
 
   --shadow: rgba(212, 212, 212, 0.1);
 }
 
+/* Common Element */
 * {
   margin: 0;
   padding: 0;
@@ -45,6 +51,28 @@ body {
   border-radius: 16px;
   box-shadow: 0 0 128px 0 var(--shadow);
 }
+.error-text,
+.success-text,
+.msg-text {
+  color: var(--error-text);
+  background: var(--error);
+  border: 1px solid var(--error-text);
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  margin: 10px;
+  display: none;
+}
+.success-text {
+  color: var(--success-text);
+  background: var(--success);
+  border: 1px solid var(--success-text);
+}
+.msg-text {
+  color: var(--msg-text);
+  background: var(--msg);
+  border: 1px solid var(--msg-text);
+}
 
 /* Login & Signup Form CSS Start */
 .form {
@@ -63,16 +91,6 @@ body {
 }
 .form form {
   margin: 20px 0;
-}
-.form form .error-text {
-  color: var(--error-text);
-  padding: 8px 10px;
-  text-align: center;
-  border-radius: 5px;
-  background: var(--error);
-  border: 1px solid #f5c6cb;
-  margin-bottom: 10px;
-  display: none;
 }
 .form form .name-details {
   display: flex;
@@ -404,21 +422,88 @@ body {
   border-radius: 5px 0 0 5px;
 }
 .typing-area button {
-  color: #fff;
   width: 55px;
   border: none;
   outline: none;
-  background: var(--primary-text);
   font-size: 19px;
   cursor: pointer;
   opacity: 0.7;
   pointer-events: none;
-  border-radius: 0 5px 5px 0;
   transition: all 0.3s ease;
+}
+.typing-area .send {
+  color: #fff;
+  background: var(--primary-text);
+  border-radius: 0 5px 5px 0;
 }
 .typing-area button.active {
   opacity: 1;
   pointer-events: auto;
+}
+
+/* Attachment form */
+.attach-header {
+  font-size: 25px;
+  padding: 18px 30px;
+  display: flex;
+  justify-content: space-between;
+  background: #c5c5c5;
+  border-radius: 20px;
+}
+.attach-item,
+.attach-content {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+.attach-item .fas {
+  font-size: 30px;
+  padding: 20px;
+  cursor: pointer;
+  border-radius: 50%;
+  background: #c5c5c5;
+}
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 30px;
+  right: 28px;
+  width: 280px;
+}
+.attach-popup {
+  display: none;
+  z-index: 9;
+}
+.attach-container {
+  background-color: var(--chat-bg);
+}
+.attach-container .btn {
+  background-color: #04aa6d;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+.attach-container .cancel {
+  background-color: red;
+}
+.attach-container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+}
+.attach-footer {
+  text-align: center;
+}
+.submitAttach {
+  margin: 10px;
 }
 
 /* Responive media query */

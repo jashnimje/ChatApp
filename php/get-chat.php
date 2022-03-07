@@ -35,22 +35,30 @@ if (isset($_SESSION['unique_id'])) {
                 $output .= "<div class='chatDate'>{$currDate}</div>";
                 $currDate = $temp;
             }
+
+            // Change header class if message is incoming or outgoing
             if ($row['outgoing_msg_id'] === $outgoing_id) {
                 $output .= '<div class="chat outgoing">
-                                <div class="details">
-                                    <p class="chatbox">' . $message . '</p>
-                                    <p class="timestamp">' . $time . '</p>
-                                </div>
-                                </div>';
+                                <div class="details">';
             } else {
                 $output .= '<div class="chat incoming">
-                                <div class="details">
-                                    <p class="chatbox">' . $message . '</p>
-                                    <p class="timestamp">' . $time . '</p>
-                                </div>
-                                
-                                </div>';
+                                <div class="details">';
             }
+
+            // Check if user has attachment or text
+            if ($row['type'] != 'text') {
+                // To Display in Other format for different type
+                $ext = explode(".", $message)[1];
+                $tmp = ucfirst($row['type']) . " - " . $ext;
+
+                $output .= '<p class="chatbox"><a target="_blank" href="./assets/attachments/' . $message . '">' . $tmp  . '</a></p>';
+            } else {
+                $output .= '<p class="chatbox">' . $message . '</p>';
+            }
+            // Concatinate time (common element)
+            $output .= '<p class="timestamp">' . $time . '</p>
+                            </div>
+                        </div>';
             $prevDate = $currDate;
         }
     } else {

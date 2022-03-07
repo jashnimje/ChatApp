@@ -47,7 +47,7 @@ if (!empty($fname) && !empty($lname) && !empty($email) && !empty($password)) {
             }
 
             $ran_id = rand(time(), 100000000);
-            $status = "Active now";
+            $status = "Online";
             $encrypt_pass = md5($password);
 
             if ($img != "") {
