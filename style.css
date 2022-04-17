@@ -41,7 +41,8 @@ body {
   min-height: 100vh;
   background: var(--primary);
   background-image: url("assets/images/BgWall.png");
-  /* background-repeat: no-repeat; */
+  background-repeat: no-repeat;
+  background-size: cover;
   padding: 0 10px;
 }
 .wrapper {
