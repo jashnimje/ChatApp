@@ -2,30 +2,23 @@
 
 // Checks regularly if database is updated
 while ($row = mysqli_fetch_assoc($query)) {
+    $sender = $outgoing_id;
+    $receiver = $row['unique_id'];
+
     $sql2 = "SELECT * FROM messages WHERE (incoming_msg_id = {$row['unique_id']}
                 OR outgoing_msg_id = {$row['unique_id']}) AND (outgoing_msg_id = {$outgoing_id} 
                 OR incoming_msg_id = {$outgoing_id}) ORDER BY msg_id DESC LIMIT 1";
 
     $query2 = mysqli_query($conn, $sql2);
-    $row2 = mysqli_fetch_assoc($query2);
-    $iv = hex2bin($row2['iv']);
-    $msg = $row2['msg'];
-
-    // Encrypts message
-    $sql3 = "SELECT * FROM settings WHERE id = 1";
-    $query3 = mysqli_query($conn, $sql3);
-    $key = "";
-    $cipher = "";
-    $options = 0;
-    if (mysqli_num_rows($query3) > 0) {
-        while ($row3 = mysqli_fetch_assoc($query3)) {
-            $key = $row3['private_key'];
-            $cipher = $row3['cipher'];
+    if (mysqli_num_rows($query2) > 0) {
+        while ($row2 = mysqli_fetch_assoc($query2)) {
+            $iv = hex2bin($row2['iv']);
+            $msg = $row2['msg'];
+            include("decrypt.php");
         }
     }
-    $message = openssl_decrypt($msg, $cipher, $key, $options, $iv);
 
-    (mysqli_num_rows($query2) > 0) ? $result = $message : $result = "No message available";
+    (mysqli_num_rows($query2) > 0) ? $result = $msg : $result = "No message available";
     (strlen($result) > 28) ? $msg =  substr($result, 0, 28) . '...' : $msg = $result;
 
     if (isset($row2['outgoing_msg_id'])) {

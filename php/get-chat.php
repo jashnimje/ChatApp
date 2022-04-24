@@ -5,6 +5,10 @@ if (isset($_SESSION['unique_id'])) {
 
     $outgoing_id = $_SESSION['unique_id'];
     $incoming_id = mysqli_real_escape_string($conn, $_POST['incoming_id']);
+
+    $sender = $outgoing_id;
+    $receiver = $incoming_id;
+
     $output = "";
     $sql = "SELECT * FROM messages LEFT JOIN users ON users.unique_id = messages.outgoing_msg_id
                 WHERE (outgoing_msg_id = {$outgoing_id} AND incoming_msg_id = {$incoming_id})
@@ -16,24 +20,11 @@ if (isset($_SESSION['unique_id'])) {
         while ($row = mysqli_fetch_assoc($query)) {
             $iv = hex2bin($row['iv']);
             $msg = $row['msg'];
-
-            // Encrypts message
-            $sql3 = "SELECT * FROM settings WHERE id = 1";
-            $query3 = mysqli_query($conn, $sql3);
-            $key = "";
-            $cipher = "";
-            $options = 0;
-            if (mysqli_num_rows($query3) > 0) {
-                while ($row3 = mysqli_fetch_assoc($query3)) {
-                    $key = $row3['private_key'];
-                    $cipher = $row3['cipher'];
-                }
-            }
-            $message = openssl_decrypt($msg, $cipher, $key, $options, $iv);
-
             $time = $row['time'];
             $currDate = date("d/m/y", strtotime($time));
             $time = date("h:i a", strtotime($time));
+
+            include("./decrypt.php");
 
             if ($prevDate == "" || $prevDate != $currDate) {
                 $temp = $currDate;
@@ -60,12 +51,12 @@ if (isset($_SESSION['unique_id'])) {
             // Check if user has attachment or text
             if ($row['type'] != 'text') {
                 // To Display in Other format for different type
-                $ext = explode(".", $message)[1];
+                $ext = explode(".", $msg)[1];
                 $tmp = ucfirst($row['type']) . " - " . $ext;
 
-                $output .= '<p class="chatbox"><a target="_blank" href="./assets/attachments/' . $message . '">' . $tmp  . '</a></p>';
+                $output .= '<p class="chatbox"><a target="_blank" href="./assets/attachments/' . $msg . '">' . $tmp  . '</a></p>';
             } else {
-                $output .= '<p class="chatbox">' . $message . '</p>';
+                $output .= '<p class="chatbox">' . $msg . '</p>';
             }
             // Concatinate time (common element)
             $output .= '<p class="timestamp">' . $time . '</p>

@@ -50,13 +50,18 @@ if (!empty($fname) && !empty($lname) && !empty($email) && !empty($password)) {
             $status = "Online";
             $encrypt_pass = md5($password);
 
-            if ($img != "") {
-                $sql = "INSERT INTO users (unique_id, fname, lname, email, password, img, status) VALUES ('{$ran_id}', '{$fname}','{$lname}', '{$email}', '{$encrypt_pass}', '{$img}', '{$status}')";
-                $insert_query = mysqli_query($conn, $sql);
-            } else {
-                $sql = "INSERT INTO users (unique_id, fname, lname, email, password, status) VALUES ('{$ran_id}', '{$fname}','{$lname}', '{$email}', '{$encrypt_pass}', '{$status}')";
-                $insert_query = mysqli_query($conn, $sql);
+            // Generate public and private keys
+            $res = openssl_pkey_new();
+            $private_key = "";
+            openssl_pkey_export($res, $private_key);
+            $public_key = openssl_pkey_get_details($res)["key"];
+
+            if ($img == "") {
+                $img = "default.png";
             }
+            $sql = "INSERT INTO users (unique_id, fname, lname, email, password, img, status, verify, public_key, private_key) 
+                VALUES ('{$ran_id}', '{$fname}','{$lname}', '{$email}', '{$encrypt_pass}', '{$img}', '{$status}', '0', '{$public_key}', '{$private_key}')";
+            $insert_query = mysqli_query($conn, $sql);
 
             if ($insert_query) {
                 $select_sql2 = mysqli_query($conn, "SELECT * FROM users WHERE email = '{$email}'");
