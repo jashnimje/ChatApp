@@ -2,7 +2,6 @@
 session_start();
 if (isset($_SESSION['unique_id'])) {
     include_once "config.php";
-    include_once "crypto.php";
 
     $outgoing_id = $_SESSION['unique_id'];
     $incoming_id = mysqli_real_escape_string($conn, $_POST['incoming_id']);
@@ -16,11 +15,24 @@ if (isset($_SESSION['unique_id'])) {
         $prevDate = "";
         while ($row = mysqli_fetch_assoc($query)) {
             $iv = hex2bin($row['iv']);
-            $message = str_openssl_dec($row['msg'], $iv);
+            $msg = $row['msg'];
+
+            // Encrypts message
+            $sql3 = "SELECT * FROM settings WHERE id = 1";
+            $query3 = mysqli_query($conn, $sql3);
+            $key = "";
+            $cipher = "";
+            $options = 0;
+            if (mysqli_num_rows($query3) > 0) {
+                while ($row3 = mysqli_fetch_assoc($query3)) {
+                    $key = $row3['private_key'];
+                    $cipher = $row3['cipher'];
+                }
+            }
+            $message = openssl_decrypt($msg, $cipher, $key, $options, $iv);
+
             $time = $row['time'];
             $currDate = date("d/m/y", strtotime($time));
-
-
             $time = date("h:i a", strtotime($time));
 
             if ($prevDate == "" || $prevDate != $currDate) {

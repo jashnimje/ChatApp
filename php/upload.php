@@ -2,7 +2,6 @@
 session_start();
 if (isset($_SESSION['unique_id'])) {
     include_once "config.php";
-    include_once "crypto.php";
 
     $outgoing_id = $_SESSION['unique_id'];
     $incoming_id = mysqli_real_escape_string($conn, $_POST['incoming_id']);
@@ -77,8 +76,23 @@ if (isset($_POST["incoming_id"])) {
                 if (move_uploaded_file($fileTmpName, $target_file)) {
                     // Encrypt file name and path
                     $iv = openssl_random_pseudo_bytes(16);
-                    $message = $fname;
-                    $message = str_openssl_enc($message, $iv);
+                    $msg = $fname;
+
+                    // Encrypts message
+                    $sql3 = "SELECT * FROM settings WHERE id = 1";
+                    $query3 = mysqli_query($conn, $sql3);
+                    $key = "";
+                    $cipher = "";
+                    $options = 0;
+                    if (
+                        mysqli_num_rows($query3) > 0
+                    ) {
+                        while ($row3 = mysqli_fetch_assoc($query3)) {
+                            $key = $row3['private_key'];
+                            $cipher = $row3['cipher'];
+                        }
+                    }
+                    $message = openssl_encrypt($msg, $cipher, $key, $options, $iv);
                     $iv = bin2hex($iv);
 
                     // Upload to database

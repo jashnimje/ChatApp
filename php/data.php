@@ -1,5 +1,4 @@
 <?php
-include_once "crypto.php";
 
 // Checks regularly if database is updated
 while ($row = mysqli_fetch_assoc($query)) {
@@ -10,7 +9,22 @@ while ($row = mysqli_fetch_assoc($query)) {
     $query2 = mysqli_query($conn, $sql2);
     $row2 = mysqli_fetch_assoc($query2);
     $iv = hex2bin($row2['iv']);
-    $message = str_openssl_dec($row2['msg'], $iv);
+    $msg = $row2['msg'];
+
+    // Encrypts message
+    $sql3 = "SELECT * FROM settings WHERE id = 1";
+    $query3 = mysqli_query($conn, $sql3);
+    $key = "";
+    $cipher = "";
+    $options = 0;
+    if (mysqli_num_rows($query3) > 0) {
+        while ($row3 = mysqli_fetch_assoc($query3)) {
+            $key = $row3['private_key'];
+            $cipher = $row3['cipher'];
+        }
+    }
+    $message = openssl_decrypt($msg, $cipher, $key, $options, $iv);
+
     (mysqli_num_rows($query2) > 0) ? $result = $message : $result = "No message available";
     (strlen($result) > 28) ? $msg =  substr($result, 0, 28) . '...' : $msg = $result;
 
