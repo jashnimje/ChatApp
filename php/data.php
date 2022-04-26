@@ -2,8 +2,6 @@
 
 // Checks regularly if database is updated
 while ($row = mysqli_fetch_assoc($query)) {
-    $sender = $outgoing_id;
-    $receiver = $row['unique_id'];
 
     $sql2 = "SELECT * FROM messages WHERE (incoming_msg_id = {$row['unique_id']}
                 OR outgoing_msg_id = {$row['unique_id']}) AND (outgoing_msg_id = {$outgoing_id} 
@@ -14,6 +12,10 @@ while ($row = mysqli_fetch_assoc($query)) {
         while ($row2 = mysqli_fetch_assoc($query2)) {
             $iv = hex2bin($row2['iv']);
             $msg = $row2['msg'];
+
+            $receiver = $row2['incoming_msg_id'];
+            $sender = $row2['outgoing_msg_id'];
+
             include("decrypt.php");
         }
     }
